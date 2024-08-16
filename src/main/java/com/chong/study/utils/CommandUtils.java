@@ -7,31 +7,50 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CommandUtils {
-    public static int executeWinmerge(String file1, String file2, String targetFolder)
+    public static int executeWinmerge(String winMergetPath, String file1, String file2, String targetFile)
             throws IOException, InterruptedException {
-        String winMergeExePath = "C:/Program File (x86)/WinMerge/WinMergeU.exe";
-        String resultName = "/result.html";
-        String param = " /minimize /noninteractive /u /or ";
-        String command = winMergeExePath + file1 + " " + file2 + param + targetFolder + resultName;
-        System.out.println(command);
-        ProcessBuilder processBuilder = new ProcessBuilder(command);
+
+        String param1 = "/minimize";
+        String param2 = "/noninteractive";
+        String param3 = "/u";
+        String param4 = "/or";
+        ProcessBuilder processBuilder = new ProcessBuilder();
+        processBuilder.command().add(winMergetPath);
+        processBuilder.command().add(file1);
+        processBuilder.command().add(file2);
+
+        processBuilder.command().add(param1);
+        processBuilder.command().add(param2);
+        processBuilder.command().add(param3);
+        processBuilder.command().add(param4);
+
+        processBuilder.command().add(targetFile);
         Process process = processBuilder.start();
         return process.waitFor();
     }
 
-    public static String getMd5(String filePath) throws IOException {
-        String command = "certutil -hashfile " + filePath + " MD5";
-        System.out.println("==========filePath: " + filePath + "========" + command);
-        ProcessBuilder processBuilder = new ProcessBuilder(command);
+    public static String getMd5(String filePath) throws IOException, InterruptedException {
+        System.out.println("==========filePath: " + filePath + "========");
+        ProcessBuilder processBuilder = new ProcessBuilder();
+        processBuilder.command().add("certutil");
+        processBuilder.command().add("-hashfile");
+        processBuilder.command().add(filePath);
+        processBuilder.command().add("MD5");
+
         Process process = processBuilder.start();
-        List<String> resultList = new ArrayList<>();
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                resultList.add(line);
+        process.waitFor();
+        if (process.exitValue() == 0) {
+            List<String> resultList = new ArrayList<>();
+            try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    resultList.add(line);
+                }
             }
+            return resultList.get(1);
+        } else {
+            return "error";
         }
-        return resultList.get(1);
     }
 
     private CommandUtils() {

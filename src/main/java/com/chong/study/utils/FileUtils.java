@@ -14,14 +14,14 @@ import java.util.stream.Stream;
 import org.springframework.util.FileCopyUtils;
 
 public class FileUtils {
-    /** 
-     * @param sourceForlder  源文件目录
-     * @param targetForlder  目标文件目录
-     * @param listFilePath   待复制文件列表
+    /**
+     * @param sourceForlder 源文件目录
+     * @param targetForlder 目标文件目录
+     * @param listFilePath  待复制文件列表
      * @throws IOException
      * 
-     *  从源文件目录，复制指定文件列表中的文件到目标目录
-     *  如果有文件重复，如 a/b.txt和c/b.txt，会重命名文件为b_1.txt
+     *                     从源文件目录，复制指定文件列表中的文件到目标目录
+     *                     如果有文件重复，如 a/b.txt和c/b.txt，会重命名文件为b_1.txt
      */
     public static void copyFileList(String sourceForlder, String targetForlder, String listFilePath)
             throws IOException {
@@ -38,13 +38,12 @@ public class FileUtils {
         }
     }
 
-    
-    /** 
-     * @param source  原始文件
+    /**
+     * @param source         原始文件
      * @param targetForlder  目标文件目录
-     * @param targetFileName  目标文件名
+     * @param targetFileName 目标文件名
      * 
-     *  复制指定文件到指定目录，并指定文件名
+     *                       复制指定文件到指定目录，并指定文件名
      */
     public static void copyFile(File source, String targetForlder, String targetFileName) {
         String targetFilePath = targetForlder + "\\" + targetFileName;
@@ -53,7 +52,7 @@ public class FileUtils {
             String[] splits = targetFileName.split("[.]");
             String name = splits[0];
             String extention = splits[1];
-            targetFilePath = targetForlder + name + "_" + count + "." + extention;
+            targetFilePath = targetForlder + "\\" + name + "_" + count + "." + extention;
             count++;
         }
         try {
@@ -65,33 +64,33 @@ public class FileUtils {
         }
     }
 
-    
-    /** 
-     * @param file1  文件1
-     * @param file2  文件2
-     * @return boolean  true表示file1和file2的md5值相等
+    /**
+     * @param file1 文件1
+     * @param file2 文件2
+     * @return boolean true表示file1和file2的md5值相等
      * @throws IOException
      * 
-     *  判断两个文件的md5值是否相等
+     *                              判断两个文件的md5值是否相等
+     * @throws InterruptedException
      */
-    public static boolean equals(String file1, String file2) throws IOException {
+    public static boolean equals(String file1, String file2) throws IOException, InterruptedException {
         String md51 = CommandUtils.getMd5(file1);
         String md52 = CommandUtils.getMd5(file2);
         return md51.equals(md52);
     }
 
-    /** 
+    /**
      * @param filePath 指定文件的路径
-     * 内容为一般为：
-     *      aaa.txt
-     *      bbb.txt
-     *      ccc.exe
+     *                 内容为一般为：
+     *                 aaa.txt
+     *                 bbb.txt
+     *                 ccc.exe
      * @return List<String> 文件内容
      * @throws IOException
      * 
-     *  以字符串列表的形式返回指定文件的内容
+     *                     以字符串列表的形式返回指定文件的内容
      */
-    private static List<String> getFiles(String filePath) throws IOException {
+    public static List<String> getFiles(String filePath) throws IOException {
         List<String> results = new ArrayList<>();
         try (BufferedReader in = new BufferedReader(new FileReader(filePath))) {
             String line = in.readLine();
