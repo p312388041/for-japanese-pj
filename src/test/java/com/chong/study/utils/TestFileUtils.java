@@ -1,10 +1,12 @@
 package com.chong.study.utils;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.io.IOException;
 
 import org.junit.jupiter.api.Test;
 
-public class FileUtilsTest {
+public class TestFileUtils {
     @Test
     void testCopyFile() {
 
@@ -12,8 +14,10 @@ public class FileUtilsTest {
 
     @Test
     void testCopyFileList() throws IOException {
-        FileUtils.copyFileList("C:\\Users\\31238\\OneDrive\\デスクトップ\\test\\", "C:\\Users\\31238\\OneDrive\\デスクトップ\\result\\",
+        FileUtils.copyFileList("C:\\Users\\31238\\OneDrive\\デスクトップ\\test\\",
+                "C:\\Users\\31238\\OneDrive\\デスクトップ\\result\\",
                 "C:\\Users\\31238\\OneDrive\\デスクトップ\\list.txt");
+        assertEquals(11, 11);
     }
 
     @Test

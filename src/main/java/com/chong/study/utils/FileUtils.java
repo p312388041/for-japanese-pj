@@ -2,16 +2,16 @@ package com.chong.study.utils;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
-
-import org.springframework.util.FileCopyUtils;
 
 public class FileUtils {
     /**
@@ -58,7 +58,8 @@ public class FileUtils {
         try {
             System.out.println("---------------source----------" + source.getAbsolutePath());
             System.out.println("---------------target----------" + targetFilePath);
-            FileCopyUtils.copy(source, new File(targetFilePath));
+            OutputStream out = new FileOutputStream(targetFilePath);
+            Files.copy(Paths.get(source.getAbsolutePath()), out);
         } catch (IOException e) {
             e.printStackTrace();
         }
