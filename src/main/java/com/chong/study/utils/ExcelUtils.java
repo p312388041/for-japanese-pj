@@ -8,8 +8,10 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 
 public class ExcelUtils {
-    public Workbook loadExeclFile(String filePath) throws EncryptedDocumentException, IOException {
+    public static Workbook loadExeclFile(String filePath) throws EncryptedDocumentException, IOException {
         Workbook workbook = WorkbookFactory.create(new File(filePath));
         return workbook;
     }
+
+    
 }

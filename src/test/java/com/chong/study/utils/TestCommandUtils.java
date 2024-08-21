@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 
 
 
-public class CommandUtilsTest {
+public class TestCommandUtils {
     @Test
     void testExecuteWinmerge() throws IOException, InterruptedException {
         String winMergeExePath = "C:\\Program Files\\WinMerge\\WinMergeU.exe";
